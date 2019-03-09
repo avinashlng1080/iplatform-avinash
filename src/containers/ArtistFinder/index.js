@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import './Styles.css'
-import { SearchBar } from '../../components'
+import { SearchBar, SearchResult } from '../../components'
+import { mockArtistResult } from '../../utils/MockData'
 
 class ArtistFinder extends Component {
   constructor(props) {
@@ -23,13 +24,20 @@ class ArtistFinder extends Component {
   render() {
     return (
       <div className="ArtistFinder">
-        <div className="SearchBarContainer">
-          <SearchBar
-            searchBarTitle="Search Last.fm"
-            formPlaceHolder="...for example try 'jackson five'"
-            onSubmit={this.handleArtistSearch}
-          />
-        </div>
+        <SearchBar
+          searchBarTitle="Search Last.fm"
+          formPlaceHolder="...for example try 'jackson five'"
+          onSubmit={this.handleArtistSearch}
+        />
+        {/*
+          1. check if there is any search result first
+          2. show spinner if currently fetching data
+          3. then if there is a result, display it
+        */}
+        <SearchResult
+          searchResultsHeadings={['', 'Artist', '']}
+          searchResults={mockArtistResult}
+        />
       </div>
     )
   }

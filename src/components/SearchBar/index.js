@@ -9,12 +9,16 @@ import { FormInputButton } from '..'
 const SearchBar = ({
   searchBarTitle, formControlID, formPlaceHolder, onSubmit,
 }) => (
-  <div className="SearchBar">
+  <div className="SearchBarContainer">
     <h3>{searchBarTitle}</h3>
-    <Form inline noValidate>
-      <Form.Group controlId={formControlID}>
-        <Form.Control inline type="text" placeholder={formPlaceHolder} />
-        <span><FormInputButton onSubmit={onSubmit} /></span>
+    <Form noValidate>
+      <Form.Group controlId={formControlID} bsPrefix="SearchBarGroup">
+        <Form.Control
+          bsPrefix="SearchBarInput"
+          type="text"
+          placeholder={formPlaceHolder}
+        />
+        <FormInputButton onSubmit={onSubmit} />
       </Form.Group>
     </Form>
   </div>

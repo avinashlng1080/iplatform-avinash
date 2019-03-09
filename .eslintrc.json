@@ -1,5 +1,6 @@
 {
     "extends": "airbnb",
+    "parser": "babel-eslint",
     "rules": {
         "react/jsx-filename-extension": [
             1,
@@ -10,6 +11,13 @@
                 ]
             }
         ],
-        "semi": 0
+        "semi": 0,
+        "comma-dangle": 0,
+        "react/jsx-max-props-per-line": [
+            true,
+            {
+                "maximum": 2
+            }
+        ]
     }
 }

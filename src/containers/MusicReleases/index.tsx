@@ -20,8 +20,4 @@ class MusicReleases extends Component {
   }
 }
 
-MusicReleases.propTypes = {}
-
-MusicReleases.defaultProps = {}
-
 export default MusicReleases

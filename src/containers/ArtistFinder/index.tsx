@@ -43,6 +43,7 @@ class ArtistFinder extends Component {
           searchResultsHeadings={['', 'Artist', '']}
           searchResults={mockArtistResult}
           onClickShowList={this.closeShortList}
+          closeShortList={this.closeShortList}
         />
         <ShortList
           showShortList={showShortList}

@@ -1,5 +1,6 @@
 .ShortListContainer{
     width: 50%;
+    margin: 40px 0 0 20px;
 }
 
 .ShortListContainer  th, td {
@@ -9,4 +10,13 @@
 
 .ShortListContainer td {
     vertical-align: middle;
+}
+
+.ShortListHeader { 
+    display: flex;
+    justify-content: space-between;
+}
+
+.CloseShortListBtn{
+    border: none;
 }

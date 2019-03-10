@@ -23,13 +23,15 @@ class ArtistFinder extends Component {
     }
   }
 
+  closeShortList = () => this.setState((prevState => ({ showShortList: !prevState.showShortList })))
+
   render() {
     const { showShortList } = this.state
     return (
       <div className="ArtistFinder">
         <SearchBar
           searchBarTitle="Search Last.fm"
-          formPlaceHolder="...for example try 'jackson five'"
+          formPlaceHolder="  enter artist name"
           onSubmit={this.handleArtistSearch}
         />
         {/*
@@ -44,6 +46,7 @@ class ArtistFinder extends Component {
         <ShortList
           showShortList={showShortList}
           favoriteList={mockArtistResult}
+          onCloseShortList={this.closeShortList}
         />
       </div>
     )

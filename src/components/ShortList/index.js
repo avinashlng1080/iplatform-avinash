@@ -4,15 +4,22 @@ import { Table } from 'react-bootstrap'
 
 import './Styles.css'
 import { getKey } from '../../utils/Functions'
-import { iconStar } from '../../assets/images'
+import { iconStar, iconClose } from '../../assets/images'
 
 // Add or remove favorite from short list
 
-const ShortList = ({ showShortList, favoriteList }) => {
+const ShortList = ({ showShortList, favoriteList, onCloseShortList }) => {
   if (showShortList) {
     return (
       <div className="ShortListContainer">
-        <div className="ShortListHeader" />
+        <div className="ShortListHeader">
+          <span>
+            My short list.
+          </span>
+          <button type="button" className="CloseShortListBtn" onClick={() => onCloseShortList()}>
+            <img src={iconClose} alt="Close short list" />
+          </button>
+        </div>
         <Table responsive size="sm">
           <thead>
             <tr>

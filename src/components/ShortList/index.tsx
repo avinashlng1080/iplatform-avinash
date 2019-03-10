@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FunctionComponent } from 'react'
 import { Table } from 'react-bootstrap'
 
 import './Styles.css'
@@ -7,8 +6,13 @@ import { getKey } from '../../utils/Functions'
 import { iconStar, iconClose } from '../../assets/images'
 
 // Add or remove favorite from short list
+type IShortList = { 
+  showShortList: boolean ,
+  favoriteList: any[],
+  onCloseShortList: () => void
+}
 
-const ShortList = ({ showShortList, favoriteList, onCloseShortList }) => {
+const ShortList: FunctionComponent<IShortList> = ({ showShortList, favoriteList, onCloseShortList }) => {
   if (showShortList) {
     return (
       <div className="ShortListContainer">
@@ -46,22 +50,6 @@ const ShortList = ({ showShortList, favoriteList, onCloseShortList }) => {
   }
 
   return null
-}
-
-ShortList.propTypes = {
-  showShortList: PropTypes.bool,
-  favoriteList: PropTypes.arrayOf(PropTypes.shape({
-    albumImage: PropTypes.string, // image url
-    artistName: PropTypes.string,
-  })),
-}
-
-ShortList.defaultProps = {
-  showShortList: false,
-  favoriteList: PropTypes.arrayOf(PropTypes.shape({
-    albumImage: PropTypes.string, // image url
-    artistName: PropTypes.string,
-  })),
 }
 
 export default ShortList

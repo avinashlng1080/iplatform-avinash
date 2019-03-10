@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import './Styles.css'
 
-class MusicReleases extends Component {
-  constructor(props) {
+type IMusicReleases = {}
+type MusicReleasesState = {}
+
+class MusicReleases extends Component<IMusicReleases, MusicReleasesState> {
+  constructor(props: IMusicReleases) {
     super(props)
     this.state = {}
   }

@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FunctionComponent } from 'react'
 import { Table, Button } from 'react-bootstrap'
 
 import './Styles.css'
@@ -7,7 +6,7 @@ import { getKey } from '../../utils/Functions'
 import { iconAdd } from '../../assets/images'
 
 // eslint-disable-next-line react/prop-types
-const getShortListButton = (...params) => {
+const getShortListButton = (...params: any[]) => {
   const [searchResults, onClickShowList] = params
   return (
     <div className="ShortListButton">
@@ -24,7 +23,13 @@ const getShortListButton = (...params) => {
   )
 }
 
-const SearchResult = ({
+type ISearchResult = {
+  searchResultsHeadings: any[],
+  searchResults: any[],
+  onClickShowList: () => void
+}
+
+const SearchResult: FunctionComponent<ISearchResult> = ({
   searchResultsHeadings, searchResults, onClickShowList
 }) => (
   <div className="SearchResultContainer">
@@ -56,22 +61,5 @@ const SearchResult = ({
     </Table>
   </div>
 )
-
-SearchResult.propTypes = {
-  searchResults: PropTypes.arrayOf(PropTypes.shape({
-    albumImage: PropTypes.string, // image url
-    artistName: PropTypes.string,
-  })),
-  searchResultsHeadings: PropTypes.arrayOf(PropTypes.string),
-  showShortList: PropTypes.bool, // TODO: remove it ?
-  onClickShowList: PropTypes.func
-}
-
-SearchResult.defaultProps = {
-  searchResults: [],
-  searchResultsHeadings: [],
-  showShortList: true,
-  onClickShowList: () => {}
-}
 
 export default SearchResult

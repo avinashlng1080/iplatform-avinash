@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap'
 
 import { iconFavorite, iconMusic } from '../../assets/images'
 import { routeArtistFinder, routeUserFavorites, routeMusicReleases } from '../../utils/Routes'

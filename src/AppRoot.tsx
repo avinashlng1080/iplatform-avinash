@@ -3,8 +3,10 @@ import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
-class AppRoot extends Component {
-  constructor(props) {
+type IAppRoot = {}
+
+class AppRoot extends Component<IAppRoot, {}> {
+  constructor(props: IAppRoot) {
     super(props)
     this.state = {}
   }

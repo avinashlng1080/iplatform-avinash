@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import './Styles.css'
-import { SearchBar, SearchResult } from '../../components'
+import { SearchBar, SearchResult, ShortList } from '../../components'
 import { mockArtistResult } from '../../utils/MockData'
 
 class ArtistFinder extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showShortList: true // TODO: change it when linked to redux
+    }
   }
 
   handleArtistSearch = (event) => {
@@ -22,6 +24,7 @@ class ArtistFinder extends Component {
   }
 
   render() {
+    const { showShortList } = this.state
     return (
       <div className="ArtistFinder">
         <SearchBar
@@ -37,6 +40,10 @@ class ArtistFinder extends Component {
         <SearchResult
           searchResultsHeadings={['', 'Artist', '']}
           searchResults={mockArtistResult}
+        />
+        <ShortList
+          showShortList={showShortList}
+          favoriteList={mockArtistResult}
         />
       </div>
     )

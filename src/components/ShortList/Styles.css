@@ -1,0 +1,12 @@
+.ShortListContainer{
+    width: 50%;
+}
+
+.ShortListContainer  th, td {
+    border-bottom: 2px solid lightgray;
+    border-top: 0px solid transparent;
+}
+
+.ShortListContainer td {
+    vertical-align: middle;
+}

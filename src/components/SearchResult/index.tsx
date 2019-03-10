@@ -24,8 +24,8 @@ const getShortListButton = (...params: any[]) => {
 }
 
 type ISearchResult = {
-  searchResultsHeadings: any[],
-  searchResults: any[],
+  searchResultsHeadings: string[],
+  searchResults: IArtist[],
   onClickShowList: () => void
 }
 

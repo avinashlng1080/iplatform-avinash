@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
 import App from './App'
+import store from './redux/store'
 
 type IAppRoot = {}
 
@@ -17,9 +19,11 @@ class AppRoot extends Component<IAppRoot, {}> {
 
   render() {
     return (
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+         <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     )
   }
 }

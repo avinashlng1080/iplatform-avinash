@@ -1,0 +1,1 @@
+export const GET_SHORT_LIST = "GET_SHORT_LIST"

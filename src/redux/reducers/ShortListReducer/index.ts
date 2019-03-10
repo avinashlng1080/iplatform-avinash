@@ -1,7 +1,9 @@
+import _ from 'lodash'
+
 import { GET_SHORT_LIST, ADD_TO_SHORT_LIST } from '../../actions/Types'
 import { ShortListType } from '../../actions/ShortListActions/types'
 
-type ShortListState = { 
+type ShortListState = {
     shortListItems: IArtist[]
 }
 
@@ -14,8 +16,8 @@ export default (state = INITIAL_STATE, action: ShortListType) => {
         case GET_SHORT_LIST:
             return state
         case ADD_TO_SHORT_LIST:
-            console.log(action)
-            return { ...state, shortListItems: state.shortListItems.concat(action.payload) }
+            const updateFavItems = _.uniqBy([...state.shortListItems, action.payload], 'artistName')
+            return { ...state, shortListItems: updateFavItems }
         default:
             return state
     }

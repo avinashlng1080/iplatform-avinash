@@ -1,1 +1,2 @@
 export const GET_SHORT_LIST = "GET_SHORT_LIST"
+export const ADD_TO_SHORT_LIST = "ADD_TO_SHORT_LIST"

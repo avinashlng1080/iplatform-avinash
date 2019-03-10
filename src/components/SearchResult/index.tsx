@@ -38,7 +38,7 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
     <div className="SearchResultContainer">
       <h4>Search Results:</h4>
       <hr />
-      {getShortListButton(searchResults, onClickShowList)}
+      { getShortListButton(searchResults, onClickShowList) }
       <Table responsive hover>
         <thead>
           <tr>

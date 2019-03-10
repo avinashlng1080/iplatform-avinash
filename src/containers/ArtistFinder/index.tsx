@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
 import { mockArtistResult } from '../../utils/MockData'
+import { AppState } from '../../redux/reducers';
+import { ShortListType } from '../../redux/actions/ShortListActions/types';
 
-type IArtistFinder = {}
+type IArtistFinder = {
+  shortListItems: ShortListType[]
+}
 type ArtistFinderState = {
   showShortList: boolean
 }
@@ -13,7 +18,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   constructor(props: IArtistFinder) {
     super(props)
     this.state = {
-      showShortList: false // TODO: change it when linked to redux
+      showShortList: props.shortListItems && props.shortListItems.length > 0
     }
   }
 
@@ -31,6 +36,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
 
   render() {
     const { showShortList } = this.state
+    const { shortListItems } = this.props
     return (
       <div className="ArtistFinder">
         <SearchBar
@@ -50,7 +56,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
         />
         <ShortList
           showShortList={showShortList}
-          favoriteList={mockArtistResult}
+          favoriteList={shortListItems}
           onCloseShortList={this.closeShortList}
         />
       </div>
@@ -58,4 +64,10 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   }
 }
 
-export default ArtistFinder
+const mapStateToProps = (state: AppState) => {
+  return {
+    shortListItems: state.shortList.shortListItems
+  }
+}
+
+export default connect(mapStateToProps, null)(ArtistFinder)

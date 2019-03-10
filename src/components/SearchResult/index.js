@@ -6,25 +6,31 @@ import './Styles.css'
 import { getKey } from '../../utils/Functions'
 import { iconAdd } from '../../assets/images'
 
-
-const getShortListButton = ({ searchResults }) => (
-  <div className="ShortListButton">
-    <Button
-      variant={!(searchResults && searchResults.lenght) ? 'outline-dark' : 'outline-light'}
-      disabled={searchResults && searchResults.lenght}
-      onClick={() => console.log('clicked on show short list')}
-    >
+// eslint-disable-next-line react/prop-types
+const getShortListButton = (...params) => {
+  const [searchResults, onClickShowList] = params
+  return (
+    <div className="ShortListButton">
+      <Button
+        variant={!(searchResults && searchResults.lenght) ? 'outline-dark' : 'outline-light'}
+        // disabled={searchResults && searchResults.lenght} // TODO: enable only if short list contains data
+        as="button"
+        onClick={onClickShowList}
+      >
        Show short-list
-    </Button>
-  </div>
+      </Button>
+    </div>
 
-)
+  )
+}
 
-const SearchResult = ({ searchResultsHeadings, searchResults, showShortList }) => (
+const SearchResult = ({
+  searchResultsHeadings, searchResults, onClickShowList
+}) => (
   <div className="SearchResultContainer">
     <h4>Search Results:</h4>
     <hr />
-    { showShortList && getShortListButton({ searchResults })}
+    { getShortListButton(searchResults, onClickShowList) }
     <Table responsive hover>
       <thead>
         <tr>
@@ -57,13 +63,15 @@ SearchResult.propTypes = {
     artistName: PropTypes.string,
   })),
   searchResultsHeadings: PropTypes.arrayOf(PropTypes.string),
-  showShortList: PropTypes.bool
+  showShortList: PropTypes.bool, // TODO: remove it ?
+  onClickShowList: PropTypes.func
 }
 
 SearchResult.defaultProps = {
   searchResults: [],
   searchResultsHeadings: [],
-  showShortList: true
+  showShortList: true,
+  onClickShowList: () => {}
 }
 
 export default SearchResult

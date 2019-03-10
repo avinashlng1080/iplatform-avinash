@@ -9,7 +9,7 @@ class ArtistFinder extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showShortList: true // TODO: change it when linked to redux
+      showShortList: false // TODO: change it when linked to redux
     }
   }
 
@@ -42,6 +42,7 @@ class ArtistFinder extends Component {
         <SearchResult
           searchResultsHeadings={['', 'Artist', '']}
           searchResults={mockArtistResult}
+          onClickShowList={this.closeShortList}
         />
         <ShortList
           showShortList={showShortList}

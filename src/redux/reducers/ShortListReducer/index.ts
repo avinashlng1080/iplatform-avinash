@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action: any) => {
+    console.log(action)
     switch (action.type) {
         case GET_SHORT_LIST:
             return state

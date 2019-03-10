@@ -1,26 +1,30 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
 import { mockArtistResult } from '../../utils/MockData'
 
-class ArtistFinder extends Component {
-  constructor(props) {
+type IArtistFinder = {}
+type ArtistFinderState = {
+  showShortList: boolean
+}
+
+class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
+  constructor(props: IArtistFinder) {
     super(props)
     this.state = {
       showShortList: false // TODO: change it when linked to redux
     }
   }
 
-  handleArtistSearch = (event) => {
-    event.preventDefault();
+  handleArtistSearch = () => {
+    // event.preventDefault();
     console.log('here in  handleArtistSearch')
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
   }
 
   closeShortList = () => this.setState((prevState => ({ showShortList: !prevState.showShortList })))
@@ -53,9 +57,5 @@ class ArtistFinder extends Component {
     )
   }
 }
-
-ArtistFinder.propTypes = {}
-
-ArtistFinder.defaultProps = {}
 
 export default ArtistFinder

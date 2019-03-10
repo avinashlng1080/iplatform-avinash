@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 import './Styles.css'
 
-class UserFavorites extends Component {
-  constructor(props) {
+type IUserFavorites = {}
+type UserFavoritesState = {}
+
+class UserFavorites extends Component<IUserFavorites, UserFavoritesState> {
+  constructor(props: IUserFavorites) {
     super(props)
     this.state = {}
   }
@@ -19,9 +21,5 @@ class UserFavorites extends Component {
     )
   }
 }
-
-UserFavorites.propTypes = {}
-
-UserFavorites.defaultProps = {}
 
 export default UserFavorites

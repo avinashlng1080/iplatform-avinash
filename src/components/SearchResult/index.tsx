@@ -7,12 +7,14 @@ import './Styles.css'
 import { getKey } from '../../utils/Functions'
 import { iconAdd } from '../../assets/images'
 import Actions from '../../redux/actions'
+import { AppState } from '../../redux/reducers';
 
 type ISearchResult = {
   searchResultsHeadings: string[],
   searchResults: ILastFMArtist[],
   onClickShowList: () => void
-  addArtistToShortList: (artist: ILastFMArtist) => void
+  addArtistToShortList: (artist: ILastFMArtist) => void,
+  noArtistMatches?: boolean
 }
 
 const getShortListButton = (...params: any[]) => {
@@ -38,11 +40,18 @@ const getLastFMImage = (images: any[], size: any = "small") => {
   return { hasImage: true, imageURL: desiredImage[0]["#text"] }
 }
 
-const getSearchResults: FunctionComponent<ISearchResult> = ({ searchResultsHeadings, searchResults, addArtistToShortList, onClickShowList} ) => {
-  return (
-    <React.Fragment>
-     { getShortListButton(searchResults, onClickShowList) } 
-    < Table responsive hover >
+const noArtistMatchesMessage = (noArtistMatches?: boolean) => {
+  return noArtistMatches ? <h4 style={{margin: '40px 0 0 40px'}}>No result found </h4> : <h4 />
+}
+
+const SearchResult: FunctionComponent<ISearchResult> = ({
+  searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList, noArtistMatches
+}) => !noArtistMatches && !_.isEmpty(searchResults) ?
+    (<div className="SearchResultContainer" >
+      <h4>Search Results:</h4>
+      <hr />
+      {getShortListButton(searchResults, onClickShowList)}
+      <Table responsive hover>
         <thead>
           <tr>
             {
@@ -51,7 +60,7 @@ const getSearchResults: FunctionComponent<ISearchResult> = ({ searchResultsHeadi
           </tr>
         </thead>
         <tbody>
-          { // TODO: Create a RowMaker Component
+          {
             searchResults.map((artist) => {
               const { image, name } = artist
               const artistImage: any = getLastFMImage(image, "small")
@@ -72,23 +81,15 @@ const getSearchResults: FunctionComponent<ISearchResult> = ({ searchResultsHeadi
             })
           }
         </tbody>
-      </Table >
-    </React.Fragment>
-  )
+      </Table>
+    </div >) : noArtistMatchesMessage(noArtistMatches)
+
+
+const mapStateToProps = (state: AppState) => {
+  return {
+    noArtistMatches: state.lastFM.noArtistMatches
+  }
 }
-
-const SearchResult: FunctionComponent<ISearchResult> = ({
-  searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList
-}) => (
-    <div className="SearchResultContainer">
-      <h4>Search Results:</h4>
-      <hr />
-      {
-        _.isEmpty(searchResults) ? (<div>No results found</div>) : getSearchResults({searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList})
-      }
-    </div>
-  )
-
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -96,4 +97,4 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SearchResult)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult)

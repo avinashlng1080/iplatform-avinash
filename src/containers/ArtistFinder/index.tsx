@@ -4,11 +4,13 @@ import { connect } from 'react-redux'
 import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
 import { mockArtistResult } from '../../utils/MockData'
-import { AppState } from '../../redux/reducers';
-import { ShortListType } from '../../redux/actions/ShortListActions/types';
+import { AppState } from '../../redux/reducers'
+import { ShortListType } from '../../redux/Types'
+import Actions from '../../redux/actions'
 
 type IArtistFinder = {
-  shortListItems: ShortListType[]
+  shortListItems: ShortListType[],
+  getSimilarArtist: (artistName: string) => void,
 }
 type ArtistFinderState = {
   showShortList: boolean
@@ -22,14 +24,13 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
     }
   }
 
-  handleArtistSearch = () => {
-    // event.preventDefault();
-    console.log('here in  handleArtistSearch')
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
+  handleArtistSearch = (event: any) => {
+    event.preventDefault();
+    if(event.target[0] && event.target[0].localName === 'input' ) { 
+      const artistNameLookup = event.target[0].value
+      const { getSimilarArtist } = this.props
+      getSimilarArtist(artistNameLookup)
+    }
   }
 
   closeShortList = () => this.setState((prevState => ({ showShortList: !prevState.showShortList })))
@@ -44,7 +45,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
           formPlaceHolder="  enter artist name"
           onSubmit={this.handleArtistSearch}
         />
-        {/*
+        {/* TODO
           1. check if there is any search result first
           2. show spinner if currently fetching data
           3. then if there is a result, display it
@@ -70,4 +71,10 @@ const mapStateToProps = (state: AppState) => {
   }
 }
 
-export default connect(mapStateToProps, null)(ArtistFinder)
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getSimilarArtist: (artistName: string) => dispatch(Actions.LastFMActions.getSimilarArtist(artistName))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistFinder)

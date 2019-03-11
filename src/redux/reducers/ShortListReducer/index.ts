@@ -1,7 +1,5 @@
 import _ from 'lodash'
-
-import { GET_SHORT_LIST, ADD_TO_SHORT_LIST } from '../../actions/Types'
-import { ShortListType } from '../../actions/ShortListActions/types'
+import { GET_SHORT_LIST, ADD_TO_SHORT_LIST, ShortListType } from '../../Types'
 
 type ShortListState = {
     shortListItems: IArtist[]

@@ -5,11 +5,10 @@ import { iconFind } from '../../assets/images'
 
 
 type IFormInputButton = {
-  onSubmit: (() => void)
 }
 
-const FormInputButton: FunctionComponent<IFormInputButton> = ({ onSubmit }) => (
-  <button type="button" className="FormInputButton" onClick={() => onSubmit()}>
+const FormInputButton: FunctionComponent<IFormInputButton> = () => (
+  <button type="submit" className="FormInputButton" >
     <img alt="Submit" src={iconFind} className="iconFind" />
   </button>
 )

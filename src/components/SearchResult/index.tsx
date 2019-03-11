@@ -55,7 +55,6 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
                 <tr
                   key={getKey()}
                   onClick={() => {
-                    console.log(`clicked for row ${artistName}`)
                     addArtistToShortList(artist)
                   }
                   }

@@ -10,6 +10,7 @@ import Actions from '../../redux/actions'
 
 type IArtistFinder = {
   shortListItems: ShortListType[],
+  searchResultsArtists: ILastFMArtist[],
   getSimilarArtist: (artistName: string) => void,
 }
 type ArtistFinderState = {
@@ -37,7 +38,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
 
   render() {
     const { showShortList } = this.state
-    const { shortListItems } = this.props
+    const { shortListItems, searchResultsArtists } = this.props
     return (
       <div className="ArtistFinder">
         <SearchBar
@@ -52,7 +53,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
         */}
         <SearchResult
           searchResultsHeadings={['', 'Artist', '']}
-          searchResults={mockArtistResult}
+          searchResults={searchResultsArtists}
           onClickShowList={this.closeShortList}
         />
         <ShortList
@@ -67,7 +68,8 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    shortListItems: state.shortList.shortListItems
+    shortListItems: state.shortList.shortListItems,
+    searchResultsArtists: state.lastFM.artists
   }
 }
 

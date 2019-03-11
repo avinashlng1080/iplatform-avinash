@@ -1,13 +1,20 @@
 import React, { FunctionComponent } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import './Styles.css'
 import { getKey } from '../../utils/Functions'
 import { iconAdd } from '../../assets/images'
-import Actions  from '../../redux/actions'
+import Actions from '../../redux/actions'
 
-// eslint-disable-next-line react/prop-types
+type ISearchResult = {
+  searchResultsHeadings: string[],
+  searchResults: ILastFMArtist[],
+  onClickShowList: () => void
+  addArtistToShortList: (artist: ILastFMArtist) => void
+}
+
 const getShortListButton = (...params: any[]) => {
   const [searchResults, onClickShowList] = params
   return (
@@ -25,21 +32,17 @@ const getShortListButton = (...params: any[]) => {
   )
 }
 
-type ISearchResult = {
-  searchResultsHeadings: string[],
-  searchResults: IArtist[],
-  onClickShowList: () => void
-  addArtistToShortList: (artist: IArtist) => void
+const getLastFMImage = (images: any[], size: any = "small") => {
+  if (_.isEmpty(images)) { return { hasImage: false, imageURL: null } }
+  const desiredImage = _.filter(images, { size: size })
+  return { hasImage: true, imageURL: desiredImage[0]["#text"] }
 }
 
-const SearchResult: FunctionComponent<ISearchResult> = ({
-  searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList
-}) => (
-    <div className="SearchResultContainer">
-      <h4>Search Results:</h4>
-      <hr />
-      { getShortListButton(searchResults, onClickShowList) }
-      <Table responsive hover>
+const getSearchResults: FunctionComponent<ISearchResult> = ({ searchResultsHeadings, searchResults, addArtistToShortList, onClickShowList} ) => {
+  return (
+    <React.Fragment>
+     { getShortListButton(searchResults, onClickShowList) } 
+    < Table responsive hover >
         <thead>
           <tr>
             {
@@ -50,7 +53,9 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
         <tbody>
           { // TODO: Create a RowMaker Component
             searchResults.map((artist) => {
-              const { albumImage, artistName } = artist
+              const { image, name } = artist
+              const artistImage: any = getLastFMImage(image, "small")
+              const { hasImage, imageURL } = artistImage
               return (
                 <tr
                   key={getKey()}
@@ -59,17 +64,31 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
                   }
                   }
                 >
-                  <td><img src={albumImage} alt={`${artistName} cover`} className="SRAlbumImage" /></td>
-                  <td><span style={{ color: '#6699c3' }}>{artistName}</span></td>
+                  <td>{hasImage && (<img src={imageURL} alt={`${name} cover`} className="SRAlbumImage" />)}</td>
+                  <td><span style={{ color: '#6699c3' }}>{name}</span></td>
                   <td><img src={iconAdd} alt="Add Artist" /></td>
                 </tr>
               )
             })
           }
         </tbody>
-      </Table>
+      </Table >
+    </React.Fragment>
+  )
+}
+
+const SearchResult: FunctionComponent<ISearchResult> = ({
+  searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList
+}) => (
+    <div className="SearchResultContainer">
+      <h4>Search Results:</h4>
+      <hr />
+      {
+        _.isEmpty(searchResults) ? (<div>No results found</div>) : getSearchResults({searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList})
+      }
     </div>
   )
+
 
 const mapDispatchToProps = (dispatch: any) => {
   return {

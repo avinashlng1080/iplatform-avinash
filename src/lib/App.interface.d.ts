@@ -1,21 +1,21 @@
-interface IArtist { 
+interface IArtist {  // TODO: to remove 
     albumImage: string,
     artistName: string
 }
 
-interface LastFMError { 
+interface ILastFMError { 
     error: number, 
     message: string
 }
 
-interface LastFMArtist { 
+interface ILastFMArtist { 
     name: string,
     mbid: string,
     match: string,
     url: string,
     image: [
         {
-            "#text": string,
+            "#text": URL,
             size: string
         }
     ]

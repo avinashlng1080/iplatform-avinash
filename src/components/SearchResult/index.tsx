@@ -23,7 +23,7 @@ const getShortListButton = (...params: any[]) => {
     <div className="ShortListButton">
       <Button
         variant={!(searchResults && searchResults.lenght) ? 'outline-dark' : 'outline-light'}
-        // disabled={searchResults && searchResults.lenght} // TODO: enable only if short list contains data
+        disabled={!_.isEmpty(searchResults)}
         as="button"
         onClick={onClickShowList}
       >

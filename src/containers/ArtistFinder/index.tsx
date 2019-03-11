@@ -46,11 +46,6 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
           formPlaceHolder="  enter artist name"
           onSubmit={this.handleArtistSearch}
         />
-        {/* TODO
-          1. check if there is any search result first
-          2. show spinner if currently fetching data
-          3. then if there is a result, display it
-        */}
         <SearchResult
           searchResultsHeadings={['', 'Artist', '']}
           searchResults={searchResultsArtists}

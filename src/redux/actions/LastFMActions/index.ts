@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 import { getSimilarArtistURL } from "../../../api/network";
-import { GET_LASTFM_ARTIST_SUCCESS, GET_LASTFM_ARTIST_FAILURE } from "../../Types";
+import { GET_LASTFM_ARTIST_SUCCESS, GET_LASTFM_ARTIST_FAILURE, GET_LASTFM_ARTIST_RESETTER } from "../../Types";
 
 const getSimilarArtistSuccess = (artists: ILastFMArtist[]) => {
   return {
@@ -21,9 +21,16 @@ const getSimilarArtistFailure = (error: ILastFMError) => {
   }
 }
 
+const getSimilarArtistResetter = () => {
+  return {
+    type: GET_LASTFM_ARTIST_RESETTER,
+  }
+}
+
 export const getSimilarArtist = (artistName: string) => {
   return async (dispatch: any) => {
     try {
+      dispatch(getSimilarArtistResetter())
       const response = await fetch(getSimilarArtistURL(artistName))
       const parsedResponse = await response.json()
       if (_.has(parsedResponse, 'error')) {

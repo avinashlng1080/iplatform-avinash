@@ -38,3 +38,28 @@ type GetLastFMArtistResetter = {
 }
 
 export type GetLastFMArtistType = GetLastFMArtistSuccess | GetLastFMArtistFailure | GetLastFMArtistResetter
+
+// MusicBrainz Redux 
+export const MBZ_GET_ARTIST_RESET   = "MBZ_GET_ARTIST_RESET"
+export const MBZ_GET_ARTIST_SUCCESS = "MBZ_GET_ARTIST_SUCCESS"
+export const MBZ_GET_ARTIST_FAILURE = "MBZ_GET_ARTIST_FAILURE"
+
+type GetMBZArtistSuccess = { 
+    type: typeof MBZ_GET_ARTIST_SUCCESS,
+    payload: {
+        artists: any[]
+    }
+}
+
+type GetMBZArtistFailure = { 
+    type: typeof MBZ_GET_ARTIST_FAILURE,
+    payload: {
+        error: any
+    }
+}
+
+type GetMBZArtistResetter = { 
+    type: typeof MBZ_GET_ARTIST_RESET,
+}
+
+export type GetMBZArtistType = GetMBZArtistSuccess | GetMBZArtistFailure | GetMBZArtistResetter

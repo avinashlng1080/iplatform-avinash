@@ -68,14 +68,11 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
               return (
                 <tr
                   key={getKey()}
-                  onClick={() => {
-                    addArtistToShortList(artist)
-                  }
-                  }
-                  style={{ cursor: 'pointer' }}
                 >
                   <td>{hasImage && (<img src={imageURL} alt={`${name} cover`} className="SRAlbumImage" />)}</td>
-                  <td><span style={{ color: '#6699c3' }}>{name}</span></td>
+                  <td onClick={() => addArtistToShortList(artist)}>
+                    <span style={{ color: '#6699c3', cursor: 'pointer' }}>{name}</span>
+                  </td>
                   <td><img src={iconAdd} alt="Add Artist" /></td>
                 </tr>
               )

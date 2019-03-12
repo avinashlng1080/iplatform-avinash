@@ -6,6 +6,7 @@ import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
 import { AppState } from '../../redux/reducers'
 import Actions from '../../redux/actions'
+import { Container } from 'react-bootstrap';
 
 type IArtistFinder = {
   shortListItems: ILastFMArtist[],
@@ -26,7 +27,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
 
   handleArtistSearch = (event: any) => {
     event.preventDefault();
-    if(event.target[0] && event.target[0].localName === 'input' ) { 
+    if (event.target[0] && event.target[0].localName === 'input') {
       const artistNameLookup = event.target[0].value
       const { getSimilarArtist } = this.props
       getSimilarArtist(artistNameLookup)
@@ -39,23 +40,23 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
     const { showShortList } = this.state
     const { shortListItems, searchResultsArtists } = this.props
     return (
-      <div className="ArtistFinder">
-        <SearchBar
-          searchBarTitle="Search Last.fm"
-          formPlaceHolder="  enter artist name"
-          onSubmit={this.handleArtistSearch}
-        />
-        <SearchResult
-          searchResultsHeadings={['', 'Artist', '']}
-          searchResults={searchResultsArtists}
-          onClickShowList={this.closeShortList}
-        />
-        <ShortList
-          showShortList={showShortList}
-          favoriteList={shortListItems}
-          onCloseShortList={this.closeShortList}
-        />
-      </div>
+        <Container>
+          <SearchBar
+            searchBarTitle="Search Last.fm"
+            formPlaceHolder="  enter artist name"
+            onSubmit={this.handleArtistSearch}
+          />
+          <SearchResult
+            searchResultsHeadings={['', 'Artist', '']}
+            searchResults={searchResultsArtists}
+            onClickShowList={this.closeShortList}
+          />
+          <ShortList
+            showShortList={showShortList}
+            favoriteList={shortListItems}
+            onCloseShortList={this.closeShortList}
+          />
+        </Container>
     )
   }
 }

@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap';
 
 import './Styles.css'
 import { SearchBar, MBZSearchResults } from '../../components';
-import { MBZArtist, MBZAccordionHeaders } from '../../utils/MockData';
 import Actions from '../../redux/actions'
 
 
@@ -30,7 +29,7 @@ class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
     return (
       <Container>
         <SearchBar searchBarTitle="Search MusicBrainz" formPlaceHolder="" onSubmit={this.handleArtistSearch} />
-        <MBZSearchResults artists={MBZArtist} />
+        <MBZSearchResults />
       </Container>
     )
   }

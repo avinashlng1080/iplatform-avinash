@@ -1,7 +1,9 @@
 import _ from 'lodash'
 
 import { getMBZArtistURL, getMBZReleaseURL } from "../../../api/network";
-import { MBZ_GET_ARTIST_SUCCESS, MBZ_GET_ARTIST_FAILURE, MBZ_GET_ARTIST_RESET } from '../../Types';
+import { MBZ_GET_ARTIST_SUCCESS, MBZ_GET_ARTIST_FAILURE, MBZ_GET_ARTIST_RESET, MBZ_FIND_RELEASE_FAILURE, MBZ_FIND_RELEASE_RESET, MBZ_FIND_RELEASE_SUCCESS } from '../../Types';
+
+// *** FIND ARTIST SECTION ***
 
 export const getMBZArtistSuccess = (artists: IMBZArtist[]) => {
     return {
@@ -47,16 +49,39 @@ export const getMBZArtist = (artistName: string) => {
 }
 
 
+// *** FIND ARTIST's RELEASE SECTION ***
+
+const findMBZReleaseSuccess = (releases: IMBZRelease[], artistReleaseID: string) => {
+    return {
+        type: MBZ_FIND_RELEASE_SUCCESS,
+        payload: {
+            releases: releases,
+            artistReleaseID
+        }
+    }
+}
+const findMBZReleaseFailure = () => {
+    return {
+        type: MBZ_FIND_RELEASE_FAILURE,
+    }
+}
+const findMBZReleaseReset = () => {
+    return {
+        type: MBZ_FIND_RELEASE_RESET,
+    }
+}
+
 export const findMBZReleases = (artistID: string) => {
     return async (dispatch: any) => {
         try {
-            // dispatch(getMBZArtistReset())
+            dispatch(findMBZReleaseReset())
             const response = await fetch(getMBZReleaseURL(artistID))
             const parsedResponse = await response.json()
-            const trimedResponse = parsedResponse['releases'].map((release: any) => _.pick(release, ['date', 'title', 'label-info', 'track-count', 'artist-credit']))   
+            const trimedResponse = parsedResponse['releases'].map((release: any) => _.pick(release, ['date', 'title', 'label-info', 'track-count', 'artist-credit']))
             const releases = _.map(trimedResponse, (item) => {
                 const labelInfo = !_.isEmpty(item["label-info"]) ? item["label-info"][0].label : {}
                 const artistCredit = !_.isEmpty(item["artist-credit"]) ? item["artist-credit"][0].artist.id : ''
+
                 return {
                     year: item.date,
                     title: item.title,
@@ -65,16 +90,17 @@ export const findMBZReleases = (artistID: string) => {
                     artistCredit
                 }
             })
-            
-            if(releases && _.isEmpty(releases)){
-                dispatch(getMBZArtistFailure())
+            if (releases && _.isEmpty(releases)) {
+                dispatch(findMBZReleaseFailure())
             }
-            else{
-                dispatch(getMBZArtistSuccess())
+            else {
+                console.log(releases)
+                let artistReleaseID = releases[0].artistCredit
+                dispatch(findMBZReleaseSuccess(releases, artistReleaseID ))
             }
         } catch (error) {
             console.error(error)
-            // dispatch(getMBZArtistFailure())
+            dispatch(findMBZReleaseFailure())
         }
     }
 }

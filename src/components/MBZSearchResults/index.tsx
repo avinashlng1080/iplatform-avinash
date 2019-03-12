@@ -6,14 +6,15 @@ import './Styles.css'
 import { getKey } from '../../utils/Functions'
 import Actions from '../../redux/actions'
 import { AppState } from '../../redux/reducers';
+import { MBZReleaseResults } from '..';
 
 type MBZSearchResults = {
-  artists: any[],
   findMBZReleases: (artistID: string) => void,
-  mbzArtists: IMBZArtist[]
+  mbzArtists: IMBZArtist[],
+  releaseArtistID: string
 }
 
-const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ artists, findMBZReleases, mbzArtists }) => {
+const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ findMBZReleases, mbzArtists, releaseArtistID }) => {
   return (
     <div className="MBZSearchResults">
       <h4>Search Results:</h4>
@@ -28,11 +29,14 @@ const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ artists, findMB
                   <div className="MBZArtistRow">
                     <div>{artist.name}</div>
                     <div className="StickToRight" onClick={() => findMBZReleases(artist.id)}>
-                    id: { artist.id }
                       <span style={{ color: '#6699c3', cursor: 'pointer' }}>Show releases</span>
                     </div>
                   </div>
-                  <div className="AccordionHolder">lala</div>
+                  {(releaseArtistID === artist.id) && (
+                    <div className="AccordionHolder">
+                        <MBZReleaseResults  releaseTableHeadings={['Year', 'Title', 'Release Label', 'Number Of tracks']}/>
+                    </div>
+                  )}
                 </div>
               </ListGroup.Item>
             )
@@ -45,44 +49,15 @@ const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ artists, findMB
 
 const mapStateToProps = (state: AppState) => {
   return {
-    mbzArtists : state.musicBrainz.mbzArtists
+    mbzArtists: state.musicBrainz.mbzArtists,
+    releaseArtistID: state.musicBrainz.artistReleaseID
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    findMBZReleases : (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID))
+    findMBZReleases: (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID))
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MBZSearchResults)
-
-
-/**
- *     <Table responsive hover>
-        <thead>
-          <tr>
-            {
-              artistHeadings.map(heading => (<th key={getKey()}>{heading}</th>))
-            }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            artists.map((artist) => {
-              const { name } = artist
-              return (
-                <tr
-                  key={getKey()}
-                >
-                  <td>{name}</td>
-                  <td onClick={() => { console.log('clicked on ');console.log(artist)}}>
-                   <span style={{ color: '#6699c3', cursor: 'pointer' }}>Show releases</span>
-                 </td>
-                </tr>
-              )
-            })
-          }
-        </tbody>
-      </Table>
- */

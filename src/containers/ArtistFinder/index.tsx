@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
-import { mockArtistResult } from '../../utils/MockData'
+import { AppState } from '../../redux/reducers'
+import Actions from '../../redux/actions'
 
-type IArtistFinder = {}
+type IArtistFinder = {
+  shortListItems: ILastFMArtist[],
+  searchResultsArtists: ILastFMArtist[],
+  getSimilarArtist: (artistName: string) => void,
+}
 type ArtistFinderState = {
   showShortList: boolean
 }
@@ -13,24 +20,24 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   constructor(props: IArtistFinder) {
     super(props)
     this.state = {
-      showShortList: false // TODO: change it when linked to redux
+      showShortList: !_.isEmpty(props.shortListItems)
     }
   }
 
-  handleArtistSearch = () => {
-    // event.preventDefault();
-    console.log('here in  handleArtistSearch')
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
+  handleArtistSearch = (event: any) => {
+    event.preventDefault();
+    if(event.target[0] && event.target[0].localName === 'input' ) { 
+      const artistNameLookup = event.target[0].value
+      const { getSimilarArtist } = this.props
+      getSimilarArtist(artistNameLookup)
+    }
   }
 
   closeShortList = () => this.setState((prevState => ({ showShortList: !prevState.showShortList })))
 
   render() {
     const { showShortList } = this.state
+    const { shortListItems, searchResultsArtists } = this.props
     return (
       <div className="ArtistFinder">
         <SearchBar
@@ -38,19 +45,14 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
           formPlaceHolder="  enter artist name"
           onSubmit={this.handleArtistSearch}
         />
-        {/*
-          1. check if there is any search result first
-          2. show spinner if currently fetching data
-          3. then if there is a result, display it
-        */}
         <SearchResult
           searchResultsHeadings={['', 'Artist', '']}
-          searchResults={mockArtistResult}
+          searchResults={searchResultsArtists}
           onClickShowList={this.closeShortList}
         />
         <ShortList
           showShortList={showShortList}
-          favoriteList={mockArtistResult}
+          favoriteList={shortListItems}
           onCloseShortList={this.closeShortList}
         />
       </div>
@@ -58,4 +60,17 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   }
 }
 
-export default ArtistFinder
+const mapStateToProps = (state: AppState) => {
+  return {
+    shortListItems: state.shortList.shortListItems,
+    searchResultsArtists: state.lastFM.artists,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getSimilarArtist: (artistName: string) => dispatch(Actions.LastFMActions.getSimilarArtist(artistName))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistFinder)

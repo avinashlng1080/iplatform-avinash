@@ -41,7 +41,7 @@ const getLastFMImage = (images: any[], size: any = "small") => {
 }
 
 const noArtistMatchesMessage = (noArtistMatches?: boolean) => {
-  return noArtistMatches ? <h4 style={{margin: '40px 0 0 40px'}}>No result found </h4> : <h4 />
+  return noArtistMatches ? <h4 style={{ margin: '40px 0 0 40px' }}>No result found </h4> : <h4 />
 }
 
 const SearchResult: FunctionComponent<ISearchResult> = ({
@@ -72,6 +72,7 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
                     addArtistToShortList(artist)
                   }
                   }
+                  style={{ cursor: 'pointer' }}
                 >
                   <td>{hasImage && (<img src={imageURL} alt={`${name} cover`} className="SRAlbumImage" />)}</td>
                   <td><span style={{ color: '#6699c3' }}>{name}</span></td>

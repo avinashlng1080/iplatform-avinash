@@ -9,7 +9,7 @@ import { AppState } from '../../redux/reducers';
 
 type MBZSearchResults = {
   artists: any[],
-  findMBZReleases: (artistName: string) => void,
+  findMBZReleases: (artistID: string) => void,
   mbzArtists: IMBZArtist[]
 }
 
@@ -27,7 +27,8 @@ const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ artists, findMB
                 <div className="MBZArtistRowContainer">
                   <div className="MBZArtistRow">
                     <div>{artist.name}</div>
-                    <div className="StickToRight" onClick={() => findMBZReleases(artist.name)}>
+                    <div className="StickToRight" onClick={() => findMBZReleases(artist.id)}>
+                    id: { artist.id }
                       <span style={{ color: '#6699c3', cursor: 'pointer' }}>Show releases</span>
                     </div>
                   </div>
@@ -50,7 +51,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    findMBZReleases : (artistName: string) => dispatch(Actions.MBZActions.getMBZArtist(artistName))
+    findMBZReleases : (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID))
   }
 }
 

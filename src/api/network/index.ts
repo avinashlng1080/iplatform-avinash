@@ -6,3 +6,4 @@ export const getSimilarArtistURL = (artistName: string) =>  `${rootURL}?method=a
 
 // MBZ ARTIST API
 export const getMBZArtistURL = (artistName: string) => `http://musicbrainz.org/ws/2/artist/?query=artist:${artistName}&fmt=json`
+export const getMBZReleaseURL = (artistID: string) => `http://musicbrainz.org/ws/2/release/?query=arid:${artistID}&fmt=json`

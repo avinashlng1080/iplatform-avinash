@@ -43,6 +43,24 @@ export type GetLastFMArtistType = GetLastFMArtistSuccess | GetLastFMArtistFailur
 export const MBZ_GET_ARTIST_RESET   = "MBZ_GET_ARTIST_RESET"
 export const MBZ_GET_ARTIST_SUCCESS = "MBZ_GET_ARTIST_SUCCESS"
 export const MBZ_GET_ARTIST_FAILURE = "MBZ_GET_ARTIST_FAILURE"
+export const MBZ_FIND_RELESE_RESET    = "MBZ_FIND_RELESE_RESET"
+export const MBZ_FIND_RELESE_SUCCESS  = "MBZ_FIND_RELESE_SUCCESS"
+export const MBZ_FIND_RELESE_FAILURE  = "MBZ_FIND_RELESE_FAILURE"
+
+type FindMBZReleaseReset = { 
+    type: typeof MBZ_FIND_RELESE_RESET,
+}
+
+type FindMBZReleaseSuccess = { 
+    type: typeof MBZ_FIND_RELESE_SUCCESS,
+    payload: {
+        artists: any[]
+    }
+}
+
+type FindMBZReleaseFailure = { 
+    type: typeof MBZ_FIND_RELESE_FAILURE,
+}
 
 type GetMBZArtistSuccess = { 
     type: typeof MBZ_GET_ARTIST_SUCCESS,
@@ -62,4 +80,4 @@ type GetMBZArtistResetter = {
     type: typeof MBZ_GET_ARTIST_RESET,
 }
 
-export type GetMBZArtistType = GetMBZArtistSuccess | GetMBZArtistFailure | GetMBZArtistResetter
+export type GetMBZArtistType = GetMBZArtistSuccess | GetMBZArtistFailure | GetMBZArtistResetter | FindMBZReleaseReset | FindMBZReleaseSuccess | FindMBZReleaseFailure

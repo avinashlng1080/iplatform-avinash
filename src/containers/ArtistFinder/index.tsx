@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import './Styles.css'
 import { SearchBar, SearchResult, ShortList } from '../../components'
-import { mockArtistResult } from '../../utils/MockData'
 import { AppState } from '../../redux/reducers'
-import { ShortListType } from '../../redux/Types'
 import Actions from '../../redux/actions'
 
 type IArtistFinder = {
-  shortListItems: ShortListType[],
+  shortListItems: ILastFMArtist[],
   searchResultsArtists: ILastFMArtist[],
   getSimilarArtist: (artistName: string) => void,
 }
@@ -21,7 +20,7 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   constructor(props: IArtistFinder) {
     super(props)
     this.state = {
-      showShortList: props.shortListItems && props.shortListItems.length > 0
+      showShortList: !_.isEmpty(props.shortListItems)
     }
   }
 

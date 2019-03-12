@@ -8,7 +8,7 @@ type GetShortListAction = {
 
 type AddToShortListAction = {
     type: typeof ADD_TO_SHORT_LIST,
-    payload: IArtist
+    payload: ILastFMArtist
 }
 
 export type ShortListType = GetShortListAction | AddToShortListAction

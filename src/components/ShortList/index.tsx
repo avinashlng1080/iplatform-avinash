@@ -8,7 +8,7 @@ import { iconStar, iconClose } from '../../assets/images'
 // Add or remove favorite from short list
 type IShortList = { 
   showShortList: boolean ,
-  favoriteList: any[],
+  favoriteList: ILastFMArtist[],
   onCloseShortList: () => void
 }
 
@@ -34,11 +34,11 @@ const ShortList: FunctionComponent<IShortList> = ({ showShortList, favoriteList,
           <tbody>
             {
             favoriteList.map((artist) => {
-              const { artistName } = artist
+              const { name } = artist
               return (
-                <tr key={getKey()} onClick={() => console.log(`clicked favorite row for${artistName}`)}>
+                <tr key={getKey()} onClick={() => console.log(`clicked favorite row for${name}`)}>
                   <td><img src={iconStar} alt="Add Artist" /></td>
-                  <td><span style={{ color: '#6699c3' }}>{artistName}</span></td>
+                  <td><span style={{ color: '#6699c3' }}>{name}</span></td>
                 </tr>
               )
             })

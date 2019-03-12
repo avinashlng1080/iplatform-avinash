@@ -23,7 +23,7 @@ const getShortListButton = (...params: any[]) => {
     <div className="ShortListButton">
       <Button
         variant={!(searchResults && searchResults.lenght) ? 'outline-dark' : 'outline-light'}
-        disabled={!_.isEmpty(searchResults)}
+        disabled={_.isEmpty(searchResults)}
         as="button"
         onClick={onClickShowList}
       >
@@ -93,7 +93,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addArtistToShortList: (artist: IArtist) => dispatch(Actions.ShortListActions.addToShortList(artist))
+    addArtistToShortList: (artist: ILastFMArtist) => dispatch(Actions.ShortListActions.addToShortList(artist))
   }
 }
 

@@ -6,7 +6,7 @@ export const getShortList = () => {
     }
 }
 
-export const addToShortList = (artist: IArtist) => {
+export const addToShortList = (artist: ILastFMArtist) => {
     return {
         type: ADD_TO_SHORT_LIST,
         payload: artist

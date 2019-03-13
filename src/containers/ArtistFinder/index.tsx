@@ -8,17 +8,26 @@ import { AppState } from '../../redux/reducers'
 import Actions from '../../redux/actions'
 import { Container } from 'react-bootstrap';
 
-type IArtistFinder = {
-  shortListItems: ILastFMArtist[],
-  searchResultsArtists: ILastFMArtist[],
-  getSimilarArtist: (artistName: string) => void,
-}
+
+
 type ArtistFinderState = {
   showShortList: boolean
 }
 
-class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
-  constructor(props: IArtistFinder) {
+type StateProps = { 
+  shortListItems: ILastFMArtist[],
+  searchResultsArtists: ILastFMArtist[],
+}
+
+type DispatchProps = {
+  getSimilarArtist: (artistName: string) => void,
+}
+
+type ArtistFinderProps = StateProps & DispatchProps
+
+
+class ArtistFinder extends Component<ArtistFinderProps, ArtistFinderState> {
+  constructor(props: ArtistFinderProps) {
     super(props)
     this.state = {
       showShortList: !_.isEmpty(props.shortListItems)
@@ -61,17 +70,19 @@ class ArtistFinder extends Component<IArtistFinder, ArtistFinderState> {
   }
 }
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     shortListItems: state.shortList.shortListItems,
     searchResultsArtists: state.lastFM.artists,
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
     getSimilarArtist: (artistName: string) => dispatch(Actions.LastFMActions.getSimilarArtist(artistName))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArtistFinder)
+const ArtistFinderContainer : Component<ArtistFinderProps, ArtistFinderState> = connect(mapStateToProps, mapDispatchToProps)(ArtistFinder)
+
+export default ArtistFinderContainer

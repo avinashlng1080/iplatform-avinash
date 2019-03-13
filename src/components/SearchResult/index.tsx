@@ -9,13 +9,21 @@ import { iconAdd } from '../../assets/images'
 import Actions from '../../redux/actions'
 import { AppState } from '../../redux/reducers';
 
-type ISearchResult = {
+type OwnProps = {
   searchResultsHeadings: string[],
   searchResults: ILastFMArtist[],
   onClickShowList: () => void
-  addArtistToShortList: (artist: ILastFMArtist) => void,
+}
+
+type StateProps = {
   noArtistMatches?: boolean
 }
+
+type DispatchProps = {
+  addArtistToShortList: (artist: ILastFMArtist) => void,
+}
+
+type ISearchResultProps = OwnProps & StateProps & DispatchProps
 
 const getShortListButton = (...params: any[]) => {
   const [searchResults, onClickShowList] = params
@@ -44,7 +52,7 @@ const noArtistMatchesMessage = (noArtistMatches?: boolean) => {
   return noArtistMatches ? <h4 style={{ margin: '40px 0 0 40px' }}>No result found </h4> : <h4 />
 }
 
-const SearchResult: FunctionComponent<ISearchResult> = ({
+const SearchResult: FunctionComponent<ISearchResultProps> = ({
   searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList, noArtistMatches
 }) => !noArtistMatches && !_.isEmpty(searchResults) ?
     (<div className="SearchResultContainer" >
@@ -83,16 +91,18 @@ const SearchResult: FunctionComponent<ISearchResult> = ({
     </div >) : noArtistMatchesMessage(noArtistMatches)
 
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     noArtistMatches: state.lastFM.noArtistMatches
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
     addArtistToShortList: (artist: ILastFMArtist) => dispatch(Actions.ShortListActions.addToShortList(artist))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResult)
+const SearchResultComponent: React.FunctionComponent<OwnProps> = connect(mapStateToProps, mapDispatchToProps)(SearchResult)
+
+export default SearchResultComponent

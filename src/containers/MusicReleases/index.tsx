@@ -6,14 +6,17 @@ import './Styles.css'
 import { SearchBar, MBZSearchResults } from '../../components';
 import Actions from '../../redux/actions'
 
-
-type IMusicReleasesProps = {
+type DispatchProps = {
   getMBZArtist: (artistName: string) => void,
 }
 
 type MusicReleasesState = {}
 
-class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
+type OwnProps = {}
+
+type MusicReleasesProps = DispatchProps & OwnProps
+
+class MusicReleases extends Component<MusicReleasesProps, MusicReleasesState> {
 
   handleArtistSearch = (event: any) => {
     event.preventDefault();
@@ -34,10 +37,12 @@ class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
     getMBZArtist: (artistName: string) => dispatch(Actions.MBZActions.getMBZArtist(artistName))
   }
 }
 
-export default connect(null, mapDispatchToProps)(MusicReleases)
+const MusicReleasesContainer: Component<MusicReleasesProps, MusicReleasesState> =  connect(null, mapDispatchToProps)(MusicReleases)
+
+export default MusicReleasesContainer

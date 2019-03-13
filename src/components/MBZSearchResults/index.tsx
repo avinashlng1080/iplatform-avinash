@@ -6,15 +6,22 @@ import './Styles.css'
 import { getKey } from '../../utils/Functions'
 import Actions from '../../redux/actions'
 import { AppState } from '../../redux/reducers';
-import { MBZReleaseResults } from '..';
+import { MBZReleaseResults } from '..'
 
-type MBZSearchResults = {
-  findMBZReleases: (artistID: string) => void,
+type StateProps = {
   mbzArtists: IMBZArtist[],
   releaseArtistID: string
 }
 
-const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ findMBZReleases, mbzArtists, releaseArtistID }) => {
+type DispatchProps = {
+  findMBZReleases: (artistID: string) => void,
+}
+
+type OwnProps = {}
+
+type MBZSearchResultsProps = StateProps & DispatchProps
+
+const MBZSearchResults: FunctionComponent<MBZSearchResultsProps> = ({ findMBZReleases, mbzArtists, releaseArtistID }) => {
   return (
     <div className="MBZSearchResults">
       <h4>Search Results:</h4>
@@ -34,7 +41,7 @@ const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ findMBZReleases
                   </div>
                   {(releaseArtistID === artist.id) && (
                     <div className="AccordionHolder">
-                        <MBZReleaseResults  releaseTableHeadings={['Year', 'Title', 'Release Label', 'Number Of tracks']}/>
+                      <MBZReleaseResults releaseTableHeadings={['', 'Year', 'Title', 'Release Label', 'Number Of tracks']} />
                     </div>
                   )}
                 </div>
@@ -47,17 +54,19 @@ const MBZSearchResults: FunctionComponent<MBZSearchResults> = ({ findMBZReleases
   )
 }
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
   return {
     mbzArtists: state.musicBrainz.mbzArtists,
     releaseArtistID: state.musicBrainz.artistReleaseID
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
     findMBZReleases: (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MBZSearchResults)
+const MBZSearchResultComponent: React.FunctionComponent<OwnProps> = connect(mapStateToProps, mapDispatchToProps)(MBZSearchResults)
+
+export default MBZSearchResultComponent

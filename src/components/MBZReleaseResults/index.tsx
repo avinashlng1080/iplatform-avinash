@@ -8,11 +8,19 @@ import { getKey } from '../../utils/Functions'
 import { iconStar } from '../../assets/images'
 import Actions from '../../redux/actions'
 
-type MBZReleaseResultsProps = {
+type StateProps = {
     releases: IMBZRelease[],
-    releaseTableHeadings: string[],
+}
+
+type DispatchProps = {
     addArtistToShortList: (release: IMBZRelease) => void
 }
+
+type OwnProps = {
+    releaseTableHeadings: string[],
+}
+
+type MBZReleaseResultsProps = StateProps & DispatchProps & OwnProps
 
 const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases, releaseTableHeadings, addArtistToShortList }) => {
     return (
@@ -65,4 +73,6 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MBZReleaseResults)
+const MBZReleaseResultsComponent: React.FunctionComponent<OwnProps> = connect(mapStateToProps, mapDispatchToProps)(MBZReleaseResults)
+
+export default MBZReleaseResultsComponent

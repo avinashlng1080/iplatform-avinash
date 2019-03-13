@@ -1,0 +1,13 @@
+.MBZSearchResults { 
+    margin: 80px 30px 0 40px;
+}
+
+.MBZArtistRow {
+    display: flex;
+    position: relative
+}
+
+.StickToRight {
+    position: absolute;
+    right: 0;
+}

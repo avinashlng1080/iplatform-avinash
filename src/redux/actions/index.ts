@@ -1,9 +1,9 @@
-import * as ShortListActions from './ShortListActions'
+import * as FavoriteListActions from './FavoriteListActions'
 import * as LastFMActions from './LastFMActions'
 import * as MBZActions from './MBZActions'
 
 export default {
-    ShortListActions,
+    FavoriteListActions,
     LastFMActions,
     MBZActions
 }

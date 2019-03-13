@@ -13,7 +13,7 @@ type StateProps = {
 }
 
 type DispatchProps = {
-    addArtistToShortList: (release: IMBZRelease) => void
+    addReleaseToFavoriteList: (release: IMBZRelease) => void
 }
 
 type OwnProps = {
@@ -22,7 +22,7 @@ type OwnProps = {
 
 type MBZReleaseResultsProps = StateProps & DispatchProps & OwnProps
 
-const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases, releaseTableHeadings, addArtistToShortList }) => {
+const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases, releaseTableHeadings, addReleaseToFavoriteList }) => {
     return (
         <div className="MBZReleaseResults">
             <Table responsive hover>
@@ -43,7 +43,7 @@ const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => {
                                         // process artist first 
-                                        addArtistToShortList(release)
+                                        addReleaseToFavoriteList(release)
                                     }}
                                 >
                                     <td><img src={iconStar} alt="Favorite Release" /></td>
@@ -69,7 +69,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addArtistToShortList: (release: IMBZRelease) => dispatch(Actions.ShortListActions.addToShortList(release))
+        addReleaseToFavoriteList: (release: IMBZRelease) => dispatch(Actions.FavoriteListActions.addReleaseToFavoriteList(release))
     }
 }
 

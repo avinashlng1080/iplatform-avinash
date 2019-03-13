@@ -10,10 +10,11 @@ import Actions from '../../redux/actions'
 
 type MBZReleaseResultsProps = {
     releases: IMBZRelease[],
-    releaseTableHeadings: string[]
+    releaseTableHeadings: string[],
+    addArtistToShortList: (release: IMBZRelease) => void
 }
 
-const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases, releaseTableHeadings }) => {
+const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases, releaseTableHeadings, addArtistToShortList }) => {
     return (
         <div className="MBZReleaseResults">
             <Table responsive hover>
@@ -26,14 +27,15 @@ const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases
                 </thead>
                 <tbody>
                     {
-                        releases.map(({ year, title, releaseLabel, numberOfTracks, artistCredit }) => {
+                        releases.map((release) => {
+                            const { year, title, releaseLabel, numberOfTracks } = release
                             return (
                                 <tr
                                     key={getKey()}
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => {
                                         // process artist first 
-                                        // addArtistToShortList(artist)
+                                        addArtistToShortList(release)
                                     }}
                                 >
                                     <td><img src={iconStar} alt="Favorite Release" /></td>
@@ -59,7 +61,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addArtistToShortList: (artist: ILastFMArtist) => dispatch(Actions.ShortListActions.addToShortList(artist))
+        addArtistToShortList: (release: IMBZRelease) => dispatch(Actions.ShortListActions.addToShortList(release))
     }
 }
 

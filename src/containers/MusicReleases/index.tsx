@@ -20,7 +20,6 @@ class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
     if (event.target[0] && event.target[0].localName === 'input') {
       const artistNameLookup = event.target[0].value
       const { getMBZArtist } = this.props
-      console.log(`here ${artistNameLookup}`)
       getMBZArtist(artistNameLookup)
     }
   }
@@ -29,7 +28,7 @@ class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
     return (
       <Container>
         <SearchBar searchBarTitle="Search MusicBrainz" formPlaceHolder="" onSubmit={this.handleArtistSearch} />
-        <MBZSearchResults />
+        <MBZSearchResults/>
       </Container>
     )
   }
@@ -37,7 +36,7 @@ class MusicReleases extends Component<IMusicReleasesProps, MusicReleasesState> {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getMBZArtist : (artistName: string) => dispatch(Actions.MBZActions.getMBZArtist(artistName))
+    getMBZArtist: (artistName: string) => dispatch(Actions.MBZActions.getMBZArtist(artistName))
   }
 }
 

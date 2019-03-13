@@ -2,13 +2,15 @@
 export const GET_SHORT_LIST = "GET_SHORT_LIST"
 export const ADD_TO_SHORT_LIST = "ADD_TO_SHORT_LIST"
 
+export type MusicFavoriteType = ILastFMArtist | IMBZRelease
+
 type GetShortListAction = {
     type: typeof GET_SHORT_LIST
 }
 
 type AddToShortListAction = {
     type: typeof ADD_TO_SHORT_LIST,
-    payload: ILastFMArtist
+    payload: MusicFavoriteType
 }
 
 export type ShortListType = GetShortListAction | AddToShortListAction
@@ -68,15 +70,12 @@ type FindMBZReleaseFailure = {
 type GetMBZArtistSuccess = {
     type: typeof MBZ_GET_ARTIST_SUCCESS,
     payload: {
-        artists: any[]
+        artists: IMBZArtist[]
     }
 }
 
 type GetMBZArtistFailure = {
     type: typeof MBZ_GET_ARTIST_FAILURE,
-    payload: {
-        error: any
-    }
 }
 
 type GetMBZArtistResetter = {

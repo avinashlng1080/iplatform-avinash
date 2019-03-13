@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 
-import ShortListReducer from './ShortListReducer'
+import ShortListReducer from './FavoriteListReducer'
 import LastFMReducer from './LastFMReducer'
 import MBZReducer from './MBZReducer'
 
 
 export const rootReducer = combineReducers({
-    shortList: ShortListReducer,
+    favoriteList: ShortListReducer,
     lastFM: LastFMReducer,
     musicBrainz: MBZReducer
 })

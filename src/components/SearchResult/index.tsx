@@ -20,7 +20,7 @@ type StateProps = {
 }
 
 type DispatchProps = {
-  addArtistToShortList: (artist: ILastFMArtist) => void,
+  addArtistToFavoriteList: (artist: ILastFMArtist) => void,
 }
 
 type ISearchResultProps = OwnProps & StateProps & DispatchProps
@@ -53,7 +53,7 @@ const noArtistMatchesMessage = (noArtistMatches?: boolean) => {
 }
 
 const SearchResult: FunctionComponent<ISearchResultProps> = ({
-  searchResultsHeadings, searchResults, onClickShowList, addArtistToShortList, noArtistMatches
+  searchResultsHeadings, searchResults, onClickShowList, addArtistToFavoriteList, noArtistMatches
 }) => !noArtistMatches && !_.isEmpty(searchResults) ?
     (<div className="SearchResultContainer" >
       <h4>Search Results:</h4>
@@ -78,7 +78,7 @@ const SearchResult: FunctionComponent<ISearchResultProps> = ({
                   key={getKey()}
                 >
                   <td>{hasImage && (<img src={imageURL} alt={`${name} cover`} className="SRAlbumImage" />)}</td>
-                  <td onClick={() => addArtistToShortList(artist)}>
+                  <td onClick={() => addArtistToFavoriteList(artist)}>
                     <span style={{ color: '#6699c3', cursor: 'pointer' }}>{name}</span>
                   </td>
                   <td><img src={iconAdd} alt="Add Artist" /></td>
@@ -99,7 +99,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    addArtistToShortList: (artist: ILastFMArtist) => dispatch(Actions.ShortListActions.addToShortList(artist))
+    addArtistToFavoriteList: (artist: ILastFMArtist) => dispatch(Actions.FavoriteListActions.addArtistToFavoriteList(artist))
   }
 }
 

@@ -72,7 +72,7 @@ class ArtistFinder extends Component<ArtistFinderProps, ArtistFinderState> {
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
-    shortListItems: state.shortList.shortListItems,
+    shortListItems: state.favoriteList.favoriteArtists,
     searchResultsArtists: state.lastFM.artists,
   }
 }

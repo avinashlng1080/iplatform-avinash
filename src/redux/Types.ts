@@ -1,19 +1,35 @@
 // SHORT LIST REDUX SECTION
-export const GET_SHORT_LIST = "GET_SHORT_LIST"
-export const ADD_TO_SHORT_LIST = "ADD_TO_SHORT_LIST"
+export const GET_FAVORITE_LIST                  = "GET_FAVORITE_LIST"
+export const ADD_ARTIST_TO_FAVORITE_LIST        = "ADD_ARTIST_TO_FAVORITE_LIST"
+export const REMOVE_ARTIST_FROM_FAVORITE_LIST   = "REMOVE_ARTIST_FROM_FAVORITE_LIST"
+export const ADD_RELEASE_TO_FAVORITE_LIST       = "ADD_RELEASE_TO_FAVORITE_LIST"
+export const REMOVE_RELEASE_FROM_FAVORITE_LIST  = "REMOVE_RELEASE_FROM_FAVORITE_LIST"
 
-export type MusicFavoriteType = ILastFMArtist | IMBZRelease
-
-type GetShortListAction = {
-    type: typeof GET_SHORT_LIST
+type GetFavoriteListAction = {
+    type: typeof GET_FAVORITE_LIST
 }
 
-type AddToShortListAction = {
-    type: typeof ADD_TO_SHORT_LIST,
-    payload: MusicFavoriteType
+type AddArtistToFavoriteListAction = {
+    type: typeof ADD_ARTIST_TO_FAVORITE_LIST,
+    payload: ILastFMArtist
 }
 
-export type ShortListType = GetShortListAction | AddToShortListAction
+type RemoveArtistToFavoriteListAction = {
+    type: typeof REMOVE_ARTIST_FROM_FAVORITE_LIST,
+    payload: ILastFMArtist
+}
+
+type AddReleaseToFavoriteListAction = {
+    type: typeof ADD_RELEASE_TO_FAVORITE_LIST,
+    payload: IMBZRelease
+}
+
+type RemoveReleaseToFavoriteListAction = {
+    type: typeof REMOVE_RELEASE_FROM_FAVORITE_LIST,
+    payload: IMBZRelease
+}
+
+export type FavoristeListType = GetFavoriteListAction | AddArtistToFavoriteListAction | RemoveArtistToFavoriteListAction | AddReleaseToFavoriteListAction | RemoveReleaseToFavoriteListAction
 
 
 // LAST FM REDUX SECTION

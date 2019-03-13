@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action: FavoriteListType) => {
         case REMOVE_ARTIST_FROM_FAVORITE_LIST: {
             const favArtists = [...state.favoriteArtists]
             const removeArtistID = action.payload.mbid
-            const newFavArtists = _.remove(favArtists, (artist) => { 
+            const newFavArtists = _.remove(favArtists, (artist) => {
                 return artist.mbid !== removeArtistID
             })
             return { ...state, favoriteArtists: newFavArtists }
@@ -34,11 +34,11 @@ export default (state = INITIAL_STATE, action: FavoriteListType) => {
             const newReleases = _.uniqBy([...state.favoriteReleases, action.payload], 'title')
             return { ...state, favoriteReleases: newReleases }
         }
-        case REMOVE_RELEASE_FROM_FAVORITE_LIST:{
+        case REMOVE_RELEASE_FROM_FAVORITE_LIST: {
             const favReleases = [...state.favoriteReleases]
-            const removeArtistID = action.payload.artistCredit
-            const newFavRelease = _.remove(favReleases, (release) => { 
-                return release.artistCredit !== removeArtistID
+            const removeArtistID = action.payload.title
+            const newFavRelease = _.remove(favReleases, (release) => {
+                return release.title !== removeArtistID
             })
             return { ...state, favoriteReleases: newFavRelease }
         }

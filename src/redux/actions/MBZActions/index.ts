@@ -95,7 +95,7 @@ export const findMBZReleases = (artistID: string) => {
             }
             else {
                 let artistReleaseID = releases[0].artistCredit
-                dispatch(findMBZReleaseSuccess(releases, artistReleaseID ))
+                dispatch(findMBZReleaseSuccess(releases, artistReleaseID))
             }
         } catch (error) {
             console.error(error)

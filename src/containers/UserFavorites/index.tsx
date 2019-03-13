@@ -66,7 +66,7 @@ const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases
                 favoriteReleases.map((release) => {
                   const { title } = release
                   return (
-                    <tr style={{ cursor: 'pointer' }} key={getKey()}>
+                    <tr style={{ cursor: 'pointer' }} key={getKey()} onClick={() => removeReleaseFromFavorites(release)}>
                       <td><img src={iconDelete} alt='delete favorite artist' /></td>
                       <td>{title}</td>
                       <td />

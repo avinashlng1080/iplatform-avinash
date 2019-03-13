@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { NavBar } from './components'
 import { ArtistFinder, UserFavorites, MusicReleases } from './containers'
-import { routeArtistFinder, routeUserFavorites, routeMusicReleases } from './utils/Routes'
+import { routeArtistFinder, routeUserFavorites, routeMusicReleases } from './utils/StringContants'
 
 class App extends Component {
   componentDidMount() {

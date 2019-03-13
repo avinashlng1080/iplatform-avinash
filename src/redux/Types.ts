@@ -29,7 +29,7 @@ type RemoveReleaseToFavoriteListAction = {
     payload: IMBZRelease
 }
 
-export type FavoristeListType = GetFavoriteListAction | AddArtistToFavoriteListAction | RemoveArtistToFavoriteListAction | AddReleaseToFavoriteListAction | RemoveReleaseToFavoriteListAction
+export type FavoriteListType = GetFavoriteListAction | AddArtistToFavoriteListAction | RemoveArtistToFavoriteListAction | AddReleaseToFavoriteListAction | RemoveReleaseToFavoriteListAction
 
 
 // LAST FM REDUX SECTION

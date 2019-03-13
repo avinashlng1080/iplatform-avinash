@@ -8,6 +8,8 @@ import { AppState } from '../../redux/reducers'
 import Actions from '../../redux/actions'
 import { MBZReleaseResults } from '../../components'
 import { getKey } from '../../utils/Functions'
+import { iconDelete } from '../../assets/images'
+import { removeArtistFromFavoriteList } from '../../redux/actions/FavoriteListActions';
 
 type OwnProps = {}
 type StateProps = {
@@ -16,29 +18,32 @@ type StateProps = {
 }
 type DispatchProps = {
   findMBZReleases: (artistID: string) => void,
+  removeArtistFromFavorites: (artist: ILastFMArtist) => void,
+  removeReleaseFromFavorites: (release: IMBZRelease) => void,
 }
 type UserFavoritesProps = OwnProps & StateProps & DispatchProps
 
-const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases, favoriteArtists, findMBZReleases }) => {
-  const favoritesHeadings = ['', 'Artist Name', '']
+const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases, favoriteArtists, removeArtistFromFavorites,  removeReleaseFromFavorites}) => {
+  const favoritesArtistHeadings = ['', 'Artist Name', '']
+  const favoritesReleaseHeadings = ['', 'Release Name', '']
   return (
     <Container>
       <h2 className="PageTitle">Favorites</h2>
       <hr />
       {!_.isEmpty(favoriteArtists) && (
-        <React.Fragment>
+        <div className="FavoriteSection">
           <strong>Artist Section</strong>
           <Table responsive hover>
             <thead>
-              <tr>{favoritesHeadings.map(heading => (<th key={getKey()}>{heading}</th>))}</tr>
+              <tr>{favoritesArtistHeadings.map(heading => (<th key={getKey()}>{heading}</th>))}</tr>
             </thead>
             <tbody>
               {
                 favoriteArtists.map((artist) => {
                   const { name } = artist
                   return (
-                    <tr style={{ cursor: 'pointer' }} key={getKey()}>
-                      <td />
+                    <tr style={{ cursor: 'pointer' }} key={getKey()} onClick={() => removeArtistFromFavorites(artist)}>
+                      <td><img src={iconDelete} alt='delete favorite artist' /></td>
                       <td>{name}</td>
                       <td />
                     </tr>
@@ -47,14 +52,14 @@ const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases
               }
             </tbody>
           </Table>
-        </React.Fragment>
+        </div>
       )}
       {!_.isEmpty(favoriteReleases) && (
-        <React.Fragment>
+        <div className="FavoriteSection">
           <strong>Release Section</strong>
           <Table responsive hover>
             <thead>
-              <tr>{favoritesHeadings.map(heading => (<th key={getKey()}>{heading}</th>))}</tr>
+              <tr>{favoritesReleaseHeadings.map(heading => (<th key={getKey()}>{heading}</th>))}</tr>
             </thead>
             <tbody>
               {
@@ -62,7 +67,7 @@ const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases
                   const { title } = release
                   return (
                     <tr style={{ cursor: 'pointer' }} key={getKey()}>
-                      <td />
+                      <td><img src={iconDelete} alt='delete favorite artist' /></td>
                       <td>{title}</td>
                       <td />
                     </tr>
@@ -71,7 +76,7 @@ const UserFavorites: FunctionComponent<UserFavoritesProps> = ({ favoriteReleases
               }
             </tbody>
           </Table>
-        </React.Fragment>
+        </div>
       )}
     </Container>
   )
@@ -86,7 +91,9 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    findMBZReleases: (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID))
+    findMBZReleases: (artistID: string) => dispatch(Actions.MBZActions.findMBZReleases(artistID)),
+    removeArtistFromFavorites: (artist: ILastFMArtist) => dispatch(Actions.FavoriteListActions.removeArtistFromFavoriteList(artist)),
+    removeReleaseFromFavorites: (release: IMBZRelease) => dispatch(Actions.FavoriteListActions.removeReleaseFromFavoriteList(release))
   }
 }
 

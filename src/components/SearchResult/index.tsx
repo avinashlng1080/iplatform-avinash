@@ -8,6 +8,7 @@ import { getKey } from '../../utils/Functions'
 import { iconAdd } from '../../assets/images'
 import Actions from '../../redux/actions'
 import { AppState } from '../../redux/reducers';
+import { FavoriteIcon } from '..';
 
 type OwnProps = {
   searchResultsHeadings: string[],
@@ -83,7 +84,7 @@ const SearchResult: FunctionComponent<ISearchResultProps> = ({
                   <td>
                     <span style={{ color: '#6699c3' }}>{name}</span>
                   </td>
-                  <td><img src={iconAdd} alt="Add Artist" /></td>
+                  <td><FavoriteIcon favoriteItem={artist} favType='artist' flow='lastFM'/></td>
                 </tr>
               )
             })

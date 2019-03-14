@@ -30,7 +30,7 @@ class MusicReleases extends Component<MusicReleasesProps, MusicReleasesState> {
   render() {
     return (
       <Container>
-        <SearchBar searchBarTitle="Search MusicBrainz" formPlaceHolder="" onSubmit={this.handleArtistSearch} />
+        <SearchBar searchBarTitle="Search MusicBrainz" formPlaceHolder=" enter artist name" onSubmit={this.handleArtistSearch} />
         <MBZSearchResults/>
       </Container>
     )

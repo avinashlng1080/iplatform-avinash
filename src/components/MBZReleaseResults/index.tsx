@@ -7,6 +7,7 @@ import { AppState } from '../../redux/reducers'
 import { getKey } from '../../utils/Functions'
 import { iconStar } from '../../assets/images'
 import Actions from '../../redux/actions'
+import { FavoriteIcon } from '..';
 
 type StateProps = {
     releases: IMBZRelease[],
@@ -46,7 +47,7 @@ const MBZReleaseResults: FunctionComponent<MBZReleaseResultsProps> = ({ releases
                                         addReleaseToFavoriteList(release)
                                     }}
                                 >
-                                    <td><img src={iconStar} alt="Favorite Release" /></td>
+                                    <td><FavoriteIcon favType='release' favoriteItem={release} flow='mbz' /></td>
                                     <td>{year}</td>
                                     <td>{title}</td>
                                     <td>{releaseLabel}</td>

@@ -80,17 +80,17 @@ export const findMBZReleases = (artistID: string) => {
             const trimedResponse = parsedResponse['releases'].map((release: any) => _.pick(release, ['date', 'title', 'label-info', 'track-count', 'artist-credit']))
             const releases = _.map(trimedResponse, (item) => {
                 const labelInfo = !_.isEmpty(item["label-info"]) ? item["label-info"][0].label : {}
-                const artistCredit = !_.isEmpty(item["artist-credit"]) ? item["artist-credit"][0].artist.id : ''
-
                 return {
                     year: item.date,
                     title: item.title,
                     releaseLabel: !_.isEmpty(labelInfo) ? labelInfo.name : '',
                     numberOfTracks: item["track-count"],
-                    artistCredit
+                    artistCredit: artistID
                 }
             })
             if (releases && _.isEmpty(releases)) {
+                // Could have used a more elegant approach like toast -> unfortunately, I'm running out of time
+                alert('No release found for this artist')
                 dispatch(findMBZReleaseFailure())
             }
             else {
